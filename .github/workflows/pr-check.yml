@@ -1,12 +1,13 @@
 name: PR Check Workflow
 
-# تشغيل الووركفلو عند كل Pull Request على فرع main
+# operate the workflow in every pull request in main branch
+
 on:
 
-  push:
+  pull_request:
     branches: [ main ]
 
-  pull_request:
+  push:
     branches: [ main ]
 
 jobs:
@@ -14,21 +15,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. سحب الكود من الـ PR
+      # 1. Get the code from the PR
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. رسالة ترحيبية
+      # 2. Hello message
       - name: Say Hello
         run: echo "Hello! PR is being checked for my-resume-site."
 
-      # 3. حساب عدد الملفات المعدلة
+      # 3. Calculate the edit files
       - name: Count files changed
         run: |
           FILE_COUNT=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | wc -l)
           echo "Number of files changed in this PR: $FILE_COUNT"
 
-      # 4. مثال: التحقق من وجود index.html
+      # 4. verify if the index.html exists
       - name: Check for index.html
         run: |
           if [ -f "index.html" ]; then
