@@ -2,6 +2,10 @@ name: PR Check Workflow
 
 # تشغيل الووركفلو عند كل Pull Request على فرع main
 on:
+
+  push:
+    branches: [ main ]
+
   pull_request:
     branches: [ main ]
 
